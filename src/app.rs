@@ -1,26 +1,30 @@
+#![allow(unused)] 
+use diesel::SqliteConnection;
+use crate::db::*;
+use crate::{db::Work, view::{self, work_list::WorkList}};
+
 pub struct MovieApp {
     label: String,
     value: f32,
-}
-
-impl Default for MovieApp {
-    fn default() -> Self {
-        Self {
-            label: "Hello World!".to_owned(),
-            value: 2.7,
-        }
-    }
+    sql_conn: SqliteConnection,
+    work_list: Option<WorkList>,
 }
 
 impl MovieApp {
     /// Called once before the first frame.
-    pub fn new(cc: &eframe::CreationContext<'_>) -> Self {
-        // This is also where you can customize the look and feel of egui using
-        // `cc.egui_ctx.set_visuals` and `cc.egui_ctx.set_fonts`.
-        cc.egui_ctx.set_pixels_per_point(1.0);
-        
+    pub fn new(cc: &eframe::CreationContext<'_>, sql_conn: SqliteConnection) -> Self {
+        cc.egui_ctx.set_pixels_per_point(2.0);
 
-        Default::default()
+        MovieApp::with_connection(sql_conn)
+    }
+
+    fn with_connection(sql_conn: SqliteConnection) -> Self {
+        Self {
+            label: "Hello World!".to_owned(),
+            value: 2.7,
+            sql_conn,
+            work_list: None,
+        }
     }
 }
 
@@ -53,13 +57,19 @@ impl eframe::App for MovieApp {
                 ui.text_edit_singleline(&mut self.label);
             });
 
-            ui.add(egui::Slider::new(&mut self.value, 0.0..=10.0).text("value"));
-            if ui.button("Increment").clicked() {
-                self.value += 1.0;
+            // call render on work_list.rs
+            if self.work_list.is_none() {             
+                self.work_list = 
+                    Some(WorkList { works: query::select_all_works(&mut self.sql_conn) });
+                
             }
 
-            ui.separator();
+            // Render WorkList if it exists
+            if let Some(work_list) = &mut self.work_list {
+                work_list.render(ui);
+            }         
 
+            ui.separator();
             ui.with_layout(egui::Layout::bottom_up(egui::Align::LEFT), |ui| {
                 egui::warn_if_debug_build(ui);
             });
