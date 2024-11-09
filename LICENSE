@@ -684,4 +684,8 @@ file.
 License. You can find a copy of this license in the `LICENSES/LICENSE-eframe`
 file.
 
+  This project incorporates code from `diesel`, which is licensed under the MIT
+License. You can find a copy of this license in the `LICENSES/LICENSE-diesel`
+file.
+
 
