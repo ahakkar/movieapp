@@ -72,7 +72,7 @@ diesel::table! {
         title -> Text,
         release_date -> Nullable<Date>,
         #[sql_name = "type"]
-        type_ -> Nullable<Text>,
+        type_ -> Integer,
         summary -> Nullable<Text>,
         runtime -> Nullable<Integer>,
         language -> Nullable<Text>,
@@ -103,10 +103,18 @@ diesel::table! {
     }
 }
 
+diesel::table! {
+    work_type (id) {
+        id -> Nullable<Integer>,
+        name -> Text,
+    }
+}
+
 diesel::joinable!(artwork -> artwork_type (image_type));
 diesel::joinable!(artwork -> work (work_id));
 diesel::joinable!(rating -> work (work_id));
 diesel::joinable!(review -> work (work_id));
+diesel::joinable!(work -> work_type (type_));
 diesel::joinable!(work_genre -> genre (genre_id));
 diesel::joinable!(work_genre -> work (work_id));
 diesel::joinable!(work_person -> person (person_id));
@@ -124,4 +132,5 @@ diesel::allow_tables_to_appear_in_same_query!(
     work,
     work_genre,
     work_person,
+    work_type,
 );

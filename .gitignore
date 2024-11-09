@@ -1,5 +1,4 @@
 /target
-/migrations
 *.sqlite
 .env
 diesel.toml
