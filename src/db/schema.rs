@@ -32,8 +32,8 @@ diesel::table! {
         middle_names -> Nullable<Text>,
         last_name -> Text,
         suffix -> Nullable<Text>,
-        date_of_birth -> Nullable<Date>,
-        date_of_death -> Nullable<Date>,
+        date_of_birth -> Nullable<Text>,
+        date_of_death -> Nullable<Text>,
         biography -> Nullable<Text>,
         nationality -> Nullable<Text>,
     }
@@ -45,7 +45,7 @@ diesel::table! {
         work_id -> Integer,
         rating_value -> Integer,
         rating_source -> Nullable<Text>,
-        rating_date -> Nullable<Date>,
+        rating_date -> Nullable<Text>,
     }
 }
 
@@ -55,7 +55,7 @@ diesel::table! {
         work_id -> Integer,
         review_text -> Nullable<Text>,
         reviewer_name -> Nullable<Text>,
-        review_date -> Nullable<Date>,
+        review_date -> Nullable<Text>,
     }
 }
 
@@ -70,7 +70,7 @@ diesel::table! {
     work (id) {
         id -> Nullable<Integer>,
         title -> Text,
-        release_date -> Nullable<Date>,
+        release_date -> Nullable<Text>,
         #[sql_name = "type"]
         type_ -> Nullable<Text>,
         summary -> Nullable<Text>,

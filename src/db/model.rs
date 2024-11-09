@@ -1,9 +1,8 @@
 use diesel::prelude::*;
-use chrono::NaiveDateTime;
 
 // Models for schema.rs
 #[derive(Queryable, Selectable)]
-#[diesel(table_name = crate::schema::artwork)]
+#[diesel(table_name = crate::db::schema::artwork)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
 pub struct Artwork {
     pub id: Option<i32>,
@@ -15,7 +14,7 @@ pub struct Artwork {
 
 
 #[derive(Queryable, Selectable)]
-#[diesel(table_name = crate::schema::artwork_type)]
+#[diesel(table_name = crate::db::schema::artwork_type)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
 pub struct ArtworkType {
     pub id: Option<i32>,
@@ -24,7 +23,7 @@ pub struct ArtworkType {
 
 
 #[derive(Queryable, Selectable)]
-#[diesel(table_name = crate::schema::genre)]
+#[diesel(table_name = crate::db::schema::genre)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
 pub struct Genre {
     pub id: Option<i32>,
@@ -33,7 +32,7 @@ pub struct Genre {
 
 
 #[derive(Queryable, Selectable)]
-#[diesel(table_name = crate::schema::person)]
+#[diesel(table_name = crate::db::schema::person)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
 pub struct Person {
     pub id: Option<i32>,
@@ -42,38 +41,38 @@ pub struct Person {
     pub middle_names: Option<String>,
     pub last_name: String,
     pub suffix: Option<String>,
-    pub date_of_birth: Option<chrono::NaiveDateTime>,
-    pub date_of_death: Option<chrono::NaiveDateTime>,
+    pub date_of_birth: Option<String>,
+    pub date_of_death: Option<String>,
     pub biography: Option<String>,
     pub nationality: Option<String>,
 }
 
 
 #[derive(Queryable, Selectable)]
-#[diesel(table_name = crate::schema::rating)]
+#[diesel(table_name = crate::db::schema::rating)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
 pub struct Rating {
     pub id: Option<i32>,
     pub work_id: i32,
     pub rating_value: i32,
     pub rating_source: Option<String>,
-    pub rating_date: Option<chrono::NaiveDateTime>,
+    pub rating_date: Option<String>,
 }
 
 
 #[derive(Queryable, Selectable)]
-#[diesel(table_name = crate::schema::review)]
+#[diesel(table_name = crate::db::schema::review)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
 pub struct Review {
     pub id: Option<i32>,
     pub work_id: i32,
     pub review_text: Option<String>,
     pub reviewer_name: Option<String>,
-    pub review_date: Option<chrono::NaiveDateTime>,
+    pub review_date: Option<String>,
 }
 
 #[derive(Queryable, Selectable)]
-#[diesel(table_name = crate::schema::role)]
+#[diesel(table_name = crate::db::schema::role)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
 pub struct Role {
     pub id: Option<i32>,
@@ -82,12 +81,12 @@ pub struct Role {
 
 
 #[derive(Queryable, Selectable)]
-#[diesel(table_name = crate::schema::work)]
+#[diesel(table_name = crate::db::schema::work)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
 pub struct Work {
     pub id: Option<i32>,
     pub title: String,
-    pub release_date: Option<chrono::NaiveDateTime>,
+    pub release_date: Option<String>,
     pub type_: Option<String>,
     pub summary: Option<String>,
     pub runtime: Option<i32>,
@@ -98,7 +97,7 @@ pub struct Work {
 
 
 #[derive(Queryable, Selectable)]
-#[diesel(table_name = crate::schema::work_genre)]
+#[diesel(table_name = crate::db::schema::work_genre)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
 pub struct WorkGenre {
     pub rowid: i32,
@@ -108,7 +107,7 @@ pub struct WorkGenre {
 
 
 #[derive(Queryable, Selectable)]
-#[diesel(table_name = crate::schema::work_person)]
+#[diesel(table_name = crate::db::schema::work_person)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
 pub struct WorkPerson {
     pub id: Option<i32>,

@@ -20,6 +20,10 @@ rusqlite = { version = "0.32.1", features = ["bundled"] }
 # Diesel for ORM (Object-Relational Mapping) and migrations.
 diesel = { version = "2.2.4", features = ["sqlite"] }
 
+# Parses .env files
+dotenvy = "0.15.7"
+chrono = "0.4.38"
+
 # native:
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
 env_logger = "0.11"
