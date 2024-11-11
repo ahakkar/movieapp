@@ -71,8 +71,7 @@ diesel::table! {
         id -> Nullable<Integer>,
         title -> Text,
         release_date -> Nullable<Date>,
-        #[sql_name = "type"]
-        type_ -> Integer,
+        work_type -> Integer,
         summary -> Nullable<Text>,
         runtime -> Nullable<Integer>,
         language -> Nullable<Text>,
@@ -114,7 +113,7 @@ diesel::joinable!(artwork -> artwork_type (image_type));
 diesel::joinable!(artwork -> work (work_id));
 diesel::joinable!(rating -> work (work_id));
 diesel::joinable!(review -> work (work_id));
-diesel::joinable!(work -> work_type (type_));
+diesel::joinable!(work -> work_type (work_type));
 diesel::joinable!(work_genre -> genre (genre_id));
 diesel::joinable!(work_genre -> work (work_id));
 diesel::joinable!(work_person -> person (person_id));

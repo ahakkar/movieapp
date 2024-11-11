@@ -13,7 +13,7 @@ pub struct MovieApp {
 impl MovieApp {
     /// Called once before the first frame.
     pub fn new(cc: &eframe::CreationContext<'_>, sql_conn: SqliteConnection) -> Self {
-        cc.egui_ctx.set_pixels_per_point(2.0);
+        cc.egui_ctx.set_pixels_per_point(1.5);
 
         MovieApp::with_connection(sql_conn)
     }
@@ -49,14 +49,6 @@ impl eframe::App for MovieApp {
         });
 
         egui::CentralPanel::default().show(ctx, |ui| {
-            // The central panel the region left after adding TopPanel's and SidePanel's
-            ui.heading("MovieApp");
-
-            ui.horizontal(|ui| {
-                ui.label("Write something: ");
-                ui.text_edit_singleline(&mut self.label);
-            });
-
             // call render on work_list.rs
             if self.work_list.is_none() {             
                 self.work_list = 

@@ -12,7 +12,7 @@ INSERT INTO work_type (name) VALUES
     ('TV Miniseries'),
     ('TV Documentary');
 
-INSERT INTO work (title, release_date, type, summary, runtime, language, network, status) VALUES
+INSERT INTO work (title, release_date, work_type, summary, runtime, language, network, status) VALUES
     ('The Simpsons', '1989-12-17', 2, 'The satiric adventures of a working-class family in the misfit city of Springfield.', 30, 'English', 'FOX', 'Running'),
     ('The Simpsons Movie', '2007-07-27', 1, 'After Homer accidentally pollutes the town''s water supply, Springfield is encased in a gigantic dome by the EPA and the Simpsons are declared fugitives.', 87, 'English', 'FOX', 'Released'),
     ('The Simpsons: Treehouse of Horror', '1990-10-25', 2, 'The Simpsons host a special Halloween show, featuring three separate segments.', 30, 'English', 'FOX', 'Running'),

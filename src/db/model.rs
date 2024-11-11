@@ -87,7 +87,7 @@ pub struct Work {
     pub id: Option<i32>,
     pub title: String,
     pub release_date: Option<String>,
-    pub type_: Option<String>,
+    pub work_type: i32,
     pub summary: Option<String>,
     pub runtime: Option<i32>,
     pub language: Option<String>,
@@ -119,4 +119,13 @@ pub struct WorkPerson {
     pub character_middle_names: Option<String>,
     pub character_last_name: String,
     pub character_prefix: Option<String>,
+}
+
+
+#[derive(Queryable, Selectable)]
+#[diesel(table_name = crate::db::schema::work_type)]
+#[diesel(check_for_backend(diesel::sqlite::Sqlite))]
+pub struct WorkType {
+    pub id: Option<i32>,
+    pub name: String,
 }

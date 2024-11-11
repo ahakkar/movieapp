@@ -32,8 +32,8 @@ diesel::table! {
         middle_names -> Nullable<Text>,
         last_name -> Text,
         suffix -> Nullable<Text>,
-        date_of_birth -> Nullable<Text>,
-        date_of_death -> Nullable<Text>,
+        date_of_birth -> Nullable<Date>,
+        date_of_death -> Nullable<Date>,
         biography -> Nullable<Text>,
         nationality -> Nullable<Text>,
     }
@@ -45,7 +45,7 @@ diesel::table! {
         work_id -> Integer,
         rating_value -> Integer,
         rating_source -> Nullable<Text>,
-        rating_date -> Nullable<Text>,
+        rating_date -> Nullable<Date>,
     }
 }
 
@@ -55,7 +55,7 @@ diesel::table! {
         work_id -> Integer,
         review_text -> Nullable<Text>,
         reviewer_name -> Nullable<Text>,
-        review_date -> Nullable<Text>,
+        review_date -> Nullable<Date>,
     }
 }
 
@@ -70,9 +70,8 @@ diesel::table! {
     work (id) {
         id -> Nullable<Integer>,
         title -> Text,
-        release_date -> Nullable<Text>,
-        #[sql_name = "type"]
-        type_ -> Nullable<Text>,
+        release_date -> Nullable<Date>,
+        work_type -> Integer,
         summary -> Nullable<Text>,
         runtime -> Nullable<Integer>,
         language -> Nullable<Text>,
@@ -103,10 +102,18 @@ diesel::table! {
     }
 }
 
+diesel::table! {
+    work_type (id) {
+        id -> Nullable<Integer>,
+        name -> Text,
+    }
+}
+
 diesel::joinable!(artwork -> artwork_type (image_type));
 diesel::joinable!(artwork -> work (work_id));
 diesel::joinable!(rating -> work (work_id));
 diesel::joinable!(review -> work (work_id));
+diesel::joinable!(work -> work_type (work_type));
 diesel::joinable!(work_genre -> genre (genre_id));
 diesel::joinable!(work_genre -> work (work_id));
 diesel::joinable!(work_person -> person (person_id));
@@ -124,4 +131,5 @@ diesel::allow_tables_to_appear_in_same_query!(
     work,
     work_genre,
     work_person,
+    work_type,
 );

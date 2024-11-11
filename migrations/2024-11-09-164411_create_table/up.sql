@@ -8,13 +8,13 @@ CREATE TABLE work (
     id INTEGER PRIMARY KEY,
     title TEXT NOT NULL,
     release_date DATE,
-    type INTEGER NOT NULL,
+    work_type INTEGER NOT NULL,
     summary TEXT,
     runtime INTEGER,
     language TEXT,
     network TEXT,
     status TEXT,
-    FOREIGN KEY (type) REFERENCES work_type(id)
+    FOREIGN KEY (work_type) REFERENCES work_type(id)
 );
 
 CREATE TABLE genre (
