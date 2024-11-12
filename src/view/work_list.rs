@@ -1,5 +1,5 @@
 
-use egui::Ui;
+use egui::{FontFamily, RichText, Ui};
 use egui_extras::{Column, TableBody, TableBuilder};
 
 use crate::db::WorkWithDetails;
@@ -50,12 +50,19 @@ impl WorkList {
         work: &WorkWithDetails,
     ) {
         body.row(16.0, |mut row| {
-            row.col(|ui| { ui.label("Rating"); });
-            row.col(|ui| { ui.label(&work.title); });
+            row.col(|ui| { 
+                ui.label(
+                    RichText::new(
+                        Self::rating_to_stars(&work.rating_value)
+                    )
+                    .family(FontFamily::Name("Code2000".into())) 
+                );          
+             });
+            row.col(|ui| { ui.label(work.title.as_str()); });
             row.col(|ui| { 
                 ui.label(work.release_date.as_deref().unwrap_or("N/A"));
             });
-            row.col(|ui| { 
+            row.col(|ui| {                 
                 ui.label(work.runtime.map_or(
                     "N/A".to_string(), |v| v.to_string() + " min"
                 ));
@@ -67,5 +74,19 @@ impl WorkList {
             });
         });
     }    
+
+
+    fn rating_to_stars(rating_value: &Option<i32>) -> String {
+        match rating_value {
+            Some(x) => {
+                format!(
+                    "{}{}",
+                    "★".repeat((x / 2) as usize),
+                    if x % 2 == 1 {"⯨"} else {""}
+                )                
+            },
+            None => "".to_string(),
+        }
+    }
 }
 

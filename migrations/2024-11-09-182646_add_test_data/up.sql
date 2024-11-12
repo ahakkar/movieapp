@@ -21,3 +21,9 @@ INSERT INTO work (title, release_date, work_type, summary, runtime, language, ne
     ('The Simpsons: The Longest Daycare', '2012-07-13', 2, 'Maggie Simpson spends the day in the Ayn Rand School for Tots.', 5, 'English', 'FOX', 'Running'),
     ('The Simpsons: The Good, the Bart, and the Loki', '2021-07-07', 2, 'Loki joins forces with Bart Simpson to fight against his toughest opponent yet.', 5, 'English', 'Disney+', 'Running');
 
+
+INSERT INTO rating (work_id, rating_value, rating_source, rating_date) VALUES
+    (1, 7, 'stetson', '2023-07-08'),
+    (2, 6, 'stetson', '2023-07-09'),
+    (3, 4, 'stetson', '2023-07-10');
+

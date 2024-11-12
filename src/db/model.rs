@@ -1,4 +1,5 @@
 use diesel::prelude::*;
+use crate::db::view::*;
 
 // Models for schema.rs
 #[derive(Queryable, Selectable)]
@@ -131,7 +132,7 @@ pub struct WorkType {
 }
 
 #[derive(Queryable, Selectable)]
-#[diesel(table_name = crate::db::schema::work_with_details)]
+#[diesel(table_name = crate::db::view::work_with_details)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
 pub struct WorkWithDetails {
     pub work_id: i32,

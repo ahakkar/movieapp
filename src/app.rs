@@ -2,6 +2,7 @@
 use diesel::SqliteConnection;
 use crate::db::*;
 use crate::{db::Work, view::{self, work_list::WorkList}};
+use eframe::egui::{self, FontData, FontDefinitions, FontFamily, RichText};
 
 pub struct MovieApp {
     label: String,
@@ -15,6 +16,7 @@ impl MovieApp {
     pub fn new(cc: &eframe::CreationContext<'_>, sql_conn: SqliteConnection) -> Self {
         cc.egui_ctx.set_pixels_per_point(1.5);
 
+        configure_fonts(&cc.egui_ctx);
         MovieApp::with_connection(sql_conn)
     }
 
@@ -67,4 +69,24 @@ impl eframe::App for MovieApp {
             });
         });
     }
+}
+
+fn configure_fonts(ctx: &egui::Context) {
+    let mut fonts = FontDefinitions::default();
+    fonts.font_data.insert(
+        "code_2000".to_owned(),
+        FontData::from_static(include_bytes!("../asset/font/CODE2000.TTF")),
+    );
+
+    fonts.families
+        .entry(
+            FontFamily::Name(
+                "Code2000".into()
+            )
+        )
+        .or_default()
+        .push("code_2000".to_owned());
+
+
+    ctx.set_fonts(fonts);
 }

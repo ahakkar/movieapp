@@ -13,4 +13,5 @@ DROP TABLE review;
 DROP TABLE rating;
 DROP TABLE artwork;
 DROP TABLE artwork_type;
+DROP VIEW work_with_details;
 

@@ -3,7 +3,7 @@ use diesel::sqlite::Sqlite;
 use diesel::SqliteConnection;
 use diesel::prelude::*;
 use crate::db::model::*;
-use crate::db::schema::*;
+use crate::db::view::*;
 
 // Select all works from database
 pub fn select_all_works(conn: &mut SqliteConnection) -> 
