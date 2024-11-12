@@ -2,8 +2,11 @@
 use egui::Ui;
 use egui_extras::{Column, TableBody, TableBuilder};
 
+use crate::db::WorkWithDetails;
+
 pub struct WorkList {
-    pub(crate) works: Vec<(crate::db::Work, Option<String>)>,
+    pub(crate) works: 
+        Vec<WorkWithDetails>,
 }
 
 impl WorkList {
@@ -44,22 +47,22 @@ impl WorkList {
 
     fn add_table_row(
         body: &mut TableBody,
-        work: &(crate::db::Work, Option<String>))
-    {
+        work: &WorkWithDetails,
+    ) {
         body.row(16.0, |mut row| {
             row.col(|ui| { ui.label("Rating"); });
-            row.col(|ui| { ui.label(&work.0.title); });
+            row.col(|ui| { ui.label(&work.title); });
             row.col(|ui| { 
-                ui.label(work.0.release_date.as_deref().unwrap_or("N/A"));
+                ui.label(work.release_date.as_deref().unwrap_or("N/A"));
             });
             row.col(|ui| { 
-                ui.label(work.0.runtime.map_or(
+                ui.label(work.runtime.map_or(
                     "N/A".to_string(), |v| v.to_string() + " min"
                 ));
             });
             row.col(|ui| { 
                 ui.label(
-                    work.1.as_deref().unwrap_or("N/A")
+                    work.work_type_name.as_deref().unwrap_or("N/A")
                 );
             });
         });

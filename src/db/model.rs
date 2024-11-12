@@ -129,3 +129,20 @@ pub struct WorkType {
     pub id: Option<i32>,
     pub name: String,
 }
+
+#[derive(Queryable, Selectable)]
+#[diesel(table_name = crate::db::schema::work_with_details)]
+#[diesel(check_for_backend(diesel::sqlite::Sqlite))]
+pub struct WorkWithDetails {
+    pub work_id: i32,
+    pub title: String,
+    pub release_date: Option<String>,
+    pub work_type: i32,
+    pub summary: Option<String>,
+    pub runtime: Option<i32>,
+    pub language: Option<String>,
+    pub network: Option<String>,
+    pub status: Option<String>,
+    pub work_type_name: Option<String>, 
+    pub rating_value: Option<i32>,     
+}

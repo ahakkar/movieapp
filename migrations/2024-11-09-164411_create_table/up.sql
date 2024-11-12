@@ -94,3 +94,27 @@ CREATE TABLE artwork_type (
     id INTEGER PRIMARY KEY,
     name TEXT NOT NULL
 );
+
+
+CREATE VIEW work_with_details AS
+SELECT 
+    work.id AS work_id,
+    work.title,
+    work.release_date,
+    work.work_type,    
+    work.summary,
+    work.runtime,
+    work.language,
+    work.network,
+    work.status,
+    work_type.name AS work_type_name,
+    rating.id AS rating_id,
+    rating.rating_value,
+    rating.rating_source,
+    rating.rating_date
+FROM 
+    work
+LEFT JOIN 
+    work_type ON work.work_type = work_type.id
+LEFT JOIN 
+    rating ON work.id = rating.work_id;
