@@ -1,7 +1,10 @@
-#![allow(unused)] 
-use diesel::SqliteConnection;
+#![allow(unused)]
 use crate::db::*;
-use crate::{db::Work, view::{self, work_list::WorkList}};
+use crate::{
+    db::Work,
+    view::{self, work_list::WorkList},
+};
+use diesel::SqliteConnection;
 use eframe::egui::{self, FontData, FontDefinitions, FontFamily, RichText};
 
 pub struct MovieApp {
@@ -38,13 +41,13 @@ impl eframe::App for MovieApp {
         egui::TopBottomPanel::top("top_panel").show(ctx, |ui| {
             // The top panel is often a good place for a menu bar:
 
-            egui::menu::bar(ui, |ui| { 
+            egui::menu::bar(ui, |ui| {
                 ui.menu_button("File", |ui| {
                     if ui.button("Quit").clicked() {
                         ctx.send_viewport_cmd(egui::ViewportCommand::Close);
                     }
                 });
-                ui.add_space(16.0);                
+                ui.add_space(16.0);
 
                 egui::widgets::global_theme_preference_buttons(ui);
             });
@@ -52,16 +55,17 @@ impl eframe::App for MovieApp {
 
         egui::CentralPanel::default().show(ctx, |ui| {
             // call render on work_list.rs
-            if self.work_list.is_none() {             
-                self.work_list = 
-                    Some(WorkList { works: query::select_all_works(&mut self.sql_conn) });
-                
+            if self.work_list.is_none() {
+                self.work_list = Some(WorkList::new(
+                    query::select_all_works(&mut self.sql_conn),
+                    None,
+                ));
             }
 
             // Render WorkList if it exists
             if let Some(work_list) = &mut self.work_list {
-                work_list.render(ui);
-            }         
+                work_list.render(ctx, ui);
+            }
 
             ui.separator();
             ui.with_layout(egui::Layout::bottom_up(egui::Align::LEFT), |ui| {
@@ -78,15 +82,11 @@ fn configure_fonts(ctx: &egui::Context) {
         FontData::from_static(include_bytes!("../asset/font/CODE2000.TTF")),
     );
 
-    fonts.families
-        .entry(
-            FontFamily::Name(
-                "Code2000".into()
-            )
-        )
+    fonts
+        .families
+        .entry(FontFamily::Name("Code2000".into()))
         .or_default()
         .push("code_2000".to_owned());
-
 
     ctx.set_fonts(fonts);
 }

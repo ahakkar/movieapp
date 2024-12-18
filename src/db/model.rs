@@ -1,5 +1,5 @@
+// use crate::db::view::*;
 use diesel::prelude::*;
-use crate::db::view::*;
 
 // Models for schema.rs
 #[derive(Queryable, Selectable)]
@@ -13,7 +13,6 @@ pub struct Artwork {
     pub image_description: Option<String>,
 }
 
-
 #[derive(Queryable, Selectable)]
 #[diesel(table_name = crate::db::schema::artwork_type)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
@@ -22,7 +21,6 @@ pub struct ArtworkType {
     pub name: String,
 }
 
-
 #[derive(Queryable, Selectable)]
 #[diesel(table_name = crate::db::schema::genre)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
@@ -30,7 +28,6 @@ pub struct Genre {
     pub id: Option<i32>,
     pub name: String,
 }
-
 
 #[derive(Queryable, Selectable)]
 #[diesel(table_name = crate::db::schema::person)]
@@ -48,7 +45,6 @@ pub struct Person {
     pub nationality: Option<String>,
 }
 
-
 #[derive(Queryable, Selectable)]
 #[diesel(table_name = crate::db::schema::rating)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
@@ -59,7 +55,6 @@ pub struct Rating {
     pub rating_source: Option<String>,
     pub rating_date: Option<String>,
 }
-
 
 #[derive(Queryable, Selectable)]
 #[diesel(table_name = crate::db::schema::review)]
@@ -80,7 +75,6 @@ pub struct Role {
     pub role_name: String,
 }
 
-
 #[derive(Queryable, Selectable)]
 #[diesel(table_name = crate::db::schema::work)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
@@ -96,7 +90,6 @@ pub struct Work {
     pub status: Option<String>,
 }
 
-
 #[derive(Queryable, Selectable)]
 #[diesel(table_name = crate::db::schema::work_genre)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
@@ -105,7 +98,6 @@ pub struct WorkGenre {
     pub work_id: i32,
     pub genre_id: i32,
 }
-
 
 #[derive(Queryable, Selectable)]
 #[diesel(table_name = crate::db::schema::work_person)]
@@ -122,7 +114,6 @@ pub struct WorkPerson {
     pub character_prefix: Option<String>,
 }
 
-
 #[derive(Queryable, Selectable)]
 #[diesel(table_name = crate::db::schema::work_type)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
@@ -131,7 +122,7 @@ pub struct WorkType {
     pub name: String,
 }
 
-#[derive(Queryable, Selectable)]
+#[derive(Queryable, Selectable, Clone)]
 #[diesel(table_name = crate::db::view::work_with_details)]
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
 pub struct WorkWithDetails {
@@ -144,6 +135,6 @@ pub struct WorkWithDetails {
     pub language: Option<String>,
     pub network: Option<String>,
     pub status: Option<String>,
-    pub work_type_name: Option<String>, 
-    pub rating_value: Option<i32>,     
+    pub work_type_name: Option<String>,
+    pub rating_value: Option<i32>,
 }
