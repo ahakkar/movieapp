@@ -2,7 +2,7 @@ use egui::{Button, Context, FontFamily, Response, RichText, Ui, Vec2};
 use egui_extras::{Column, TableBody, TableBuilder};
 
 use super::rate_movie::RateMovie;
-use crate::db::WorkWithDetails;
+use crate::{constants, db::WorkWithDetails};
 
 pub struct WorkList {
     works: Vec<WorkWithDetails>,
@@ -144,8 +144,8 @@ impl WorkList {
             Some(x) => {
                 format!(
                     "{}{}",
-                    "★".repeat((x / 2) as usize),
-                    if x % 2 == 1 { "⯨" } else { "" }
+                    constants::FULL_STAR.repeat((x / 2) as usize),
+                    if x % 2 == 1 { constants::HALF_STAR } else { "" }
                 )
             }
             None => "".to_string(),

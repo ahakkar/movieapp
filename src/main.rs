@@ -1,19 +1,16 @@
-#![allow(dead_code)] 
+#![allow(dead_code)]
 // hide console window on Windows in release
-#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")] 
+#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 // When compiling natively:
 #[cfg(not(target_arch = "wasm32"))]
-
-mod constants;
-mod db;
-pub mod view;
-pub mod app;
 use app::MovieApp;
-use db::connection::establish_connection;
+use movieapp::app;
+use movieapp::constants;
+use movieapp::db::connection::establish_connection;
 
 fn main() -> eframe::Result {
     env_logger::init(); // Log to stderr (if you run with `RUST_LOG=debug`).
-    
+
     let sql_conn = establish_connection();
 
     let native_options = eframe::NativeOptions {
